@@ -128,20 +128,15 @@ void boot() {
     // but will not be run on provisioned systems
     LED_Off(LED1);
     LED_Off(LED2);
-    LED_Off(LED3);
     // LED loop to show that boot occurred
     while (1) {
         LED_On(LED1);
         MXC_Delay(500000);
         LED_On(LED2);
         MXC_Delay(500000);
-        LED_On(LED3);
-        MXC_Delay(500000);
         LED_Off(LED1);
         MXC_Delay(500000);
         LED_Off(LED2);
-        MXC_Delay(500000);
-        LED_Off(LED3);
         MXC_Delay(500000);
     }
     #endif

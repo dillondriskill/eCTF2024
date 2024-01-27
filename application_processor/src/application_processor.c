@@ -24,7 +24,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "board_link.h"
+#include "application_processor/inc/board_link.h"
 #include "simple_flash.h"
 #include "host_messaging.h"
 #ifdef CRYPTO_EXAMPLE
@@ -37,7 +37,7 @@
 #endif
 
 // Includes from containerized build
-#include "ectf_params.h"
+#include "application_processor/inc/ectf_params.h"
 #include "global_secrets.h"
 
 /********************************* CONSTANTS **********************************/
@@ -370,13 +370,9 @@ void boot() {
         MXC_Delay(500000);
         LED_On(LED2);
         MXC_Delay(500000);
-        LED_On(LED3);
-        MXC_Delay(500000);
         LED_Off(LED1);
         MXC_Delay(500000);
         LED_Off(LED2);
-        MXC_Delay(500000);
-        LED_Off(LED3);
         MXC_Delay(500000);
     }
     #endif

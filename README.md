@@ -1,5 +1,5 @@
 # eCTF Insecure Example
-This repository holds the insecure example design for an eCTF MISC system.
+The Ohio State University's design for the 2024 Mitre eCTF
 
 
 ## Layout

@@ -1,6 +1,17 @@
 # eCTF Insecure Example
 The Ohio State University's design for the 2024 Mitre eCTF
 
+# TLDR
+## Run this command to compile all your code, just keep hitting ENTER until it works
+```bash
+compile
+```
+## Run this command to update the boards
+```bash
+update
+```
+Note: You will need to start the boards into bootloader mode! You can do this by pressing the bootloader button on the board while you turn it off and on
+
 
 ## Layout
 

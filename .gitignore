@@ -367,3 +367,6 @@ cython_debug/
 
 !device/lib
 msdk/
+deployment/global_secrets.h
+component/inc/ectf_params.h
+application_processor/inc/ectf_params.h

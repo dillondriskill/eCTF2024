@@ -1,6 +1,17 @@
 # eCTF Insecure Example
 The Ohio State University's design for the 2024 Mitre eCTF
 
+# TLDR
+## Run this command to compile all your code, just keep hitting ENTER until it works
+```bash
+compile
+```
+## Run this command to update the boards
+```bash
+update
+```
+Note: You will need to start the boards into bootloader mode! You can do this by pressing the bootloader button on the board while you turn it off and on
+
 
 ## Layout
 
@@ -92,7 +103,7 @@ options:
 
 **Example Utilization**
 ```bash
-ectf_build_depl -d ../ectf-2024-example
+ectf_build_depl -d .
 ```
 ### Building the Application Processor
 This will run the `Makefile` found in the application processor folder using the following inputs:
@@ -125,7 +136,7 @@ options:
 
 **Example Utilization**
 ```bash
-ectf_build_ap -d ../ectf-2024-example -on ap --p 123456 -c 2 -ids "0x11111124, 0x11111125" -b "Test boot message" -t 0123456789abcdef -od build
+ectf_build_ap -d . -on ap --p 123456 -c 2 -ids "0x11111124, 0x11111125" -b "Test boot message" -t 0123456789abcdef -od build
 ```
 
 ### Building the Component
@@ -158,7 +169,7 @@ options:
 
 **Example Utilization**
 ```bash
-ectf_build_comp -d ../ectf-2024-example -on comp -od build -id 0x11111125 -b "Component boot" -al "McLean" -ad "08/08/08" -ac "Fritz"
+ectf_build_comp -d . -on comp -od build -id 0x11111125 -b "Component boot" -al "McLean" -ad "08/08/08" -ac "Fritz"
 ```
 
 ## Flashing

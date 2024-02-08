@@ -131,6 +131,8 @@ def main():
         print("Build deployment command:")
         # Deployment build command
         build_depl_cmd = "ectf_build_depl -d " + design
+        print(build_depl_cmd)
+        print()
 
         print("AP build command:")
         # Putting together AP build command

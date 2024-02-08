@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "crypto.h"
+#include "../inc/crypto.h"
 
 /* Encrypts a plaintext message using AES-CTR */
 int encrypt_sym(uint8_t *plaintext, size_t len, uint8_t *key, uint8_t *ciphertext) {
@@ -12,14 +12,14 @@ int encrypt_sym(uint8_t *plaintext, size_t len, uint8_t *key, uint8_t *ciphertex
 
     // Generate Random Number Generator (Pseudo-Random)
     // TODO: make this true random w/ some GPIO data or something
-    ret = wc_InitRng(^rng);
+    ret = wc_InitRng(&rng);
     if (ret != 0) {
         fprintf(stderr, "Could not initialize random number generator.");
         return -1;
     }
 
     // Generate pseudo-random nonce
-    ret = wc_RNG_GenerateBlock(&rng, iv, AES_BLOCK_SIZE);
+    ret = wc_RNG_GenerateBlock(&rng, nonce, AES_BLOCK_SIZE);
     if (ret != 0) {
         fprintf(stderr, "Failed to generate pseudo-random number.");
         return -2;
@@ -33,7 +33,7 @@ int encrypt_sym(uint8_t *plaintext, size_t len, uint8_t *key, uint8_t *ciphertex
     }
 
     // Set AES Key
-    ret = wc_AesSetKey(&ctx, key, 64, iv, AES_ENCRYPTION);
+    ret = wc_AesSetKey(&ctx, key, 64, nonce, AES_ENCRYPTION);
     if (ret != 0) {
         fprintf(stderr, "Could not set AES key");
         return -4;
@@ -58,10 +58,10 @@ int decrypt_sym(uint8_t *iv_cipher, size_t len, uint8_t *key, uint8_t *plaintext
     int ret;
     
     uint8_t iv = iv_cipher;
-    uint8_t ciphertext = iv_cipher + AES_BLOCK_SIZE;
+    uint8_t ciphertext = iv_cipher + BLOCK_SIZE;
     
     // Initialize AES struct
-    ret = wc_AesInit(aes, NULL, INVALID_DEVID);
+    ret = wc_AesInit(&ctx, NULL, INVALID_DEVID);
     if (ret != 0) {
         fprintf(stderr, "Could not initialize AES Struct");
         return -1;
@@ -69,7 +69,7 @@ int decrypt_sym(uint8_t *iv_cipher, size_t len, uint8_t *key, uint8_t *plaintext
     
     // Set the key
     // Decryption for CTR still uses the AES_ENCRYPTION
-    ret = wc_AesSetKey(aes, key, 64, iv, AES_ENCRYPTION);
+    ret = wc_AesSetKey(&ctx, key, 64, iv, AES_ENCRYPTION);
     if (ret != 0) {
         fprintf(stderr, "Could not set key");
         return -2;
@@ -77,7 +77,7 @@ int decrypt_sym(uint8_t *iv_cipher, size_t len, uint8_t *key, uint8_t *plaintext
 
     // Decrypt
     // note: AesCtrEncrypt both encrypts and decrypts
-    ret = wc_AesCtrEncrypt(aes, plaintext, ciphertext, len);
+    ret = wc_AesCtrDecrypt(&ctx, plaintext, ciphertext, len);
     if (ret != 0) {
         fprintf(stderr, "Could not decrypt");
         return -3;
